@@ -1,7 +1,7 @@
 {
-    "name": "nodegit",
+    "name": "@iac-factory/node-libgit2",
     "description": "Node.js libgit2 asynchronous native bindings",
-    "version": "0.28.0-alpha.19",
+    "version": "0.28.0-alpha.22",
     "homepage": "http://nodegit.org",
     "keywords": [
         "libgit2",
@@ -51,7 +51,7 @@
         "tar-fs": "^1.16.3"
     },
     "devDependencies": {
-        "aws-sdk": "^2.1095.0",
+        "aws-sdk": "^2.1174.0",
         "cheerio": "^1.0.0-rc.2",
         "clean-for-publish": "~1.0.2",
         "combyne": "~0.8.1",
@@ -60,13 +60,12 @@
         "js-beautify": "~1.5.10",
         "jshint": "^2.10.0",
         "mocha": "^10.0.0",
-        "walk": "^2.3.9",
-        "@types/nodegit": "^0.27.10"
+        "walk": "^2.3.9"
     },
     "binary": {
-        "module_name": "node-git",
+        "module_name": "node-libgit2",
         "module_path": "./build/Release/",
-        "host": "https://iac-factory.s3.amazonaws.com/node-git/node-git/"
+        "host": "https://iac-factory.s3.amazonaws.com/artifacts/node/node-libgit2"
     },
     "scripts": {
         "cov": "npm run cppcov && npm run filtercov",
@@ -87,6 +86,11 @@
         "recompile": "node-gyp configure build",
         "recompileDebug": "node-gyp configure --debug build",
         "test": "npm run lint && node --expose-gc test",
-        "xcodeDebug": "node-gyp configure -- -f xcode"
+        "xcodeDebug": "node-gyp configure -- -f xcode",
+        "ci": "npm publish --access public",
+        "ci-dry-run": "npm publish --access public --dry-run",
+        "ci-build": "./node_modules/.bin/node-pre-gyp build",
+        "ci-rebuild": "node generate && node-gyp configure build",
+        "ci-package": "./node_modules/.bin/node-pre-gyp package"
     }
 }

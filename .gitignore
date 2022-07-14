@@ -47,3 +47,7 @@ jsconfig.json
 
 test/id_rsa
 test/nodegit-test-rsa
+
+!vendor
+
+!vendor/**

@@ -8,10 +8,12 @@ try {
 
 var rawApi;
 
+var PKG = "node-libgit2"
+
 // Attempt to load the production release first, if it fails fall back to the
 // debug release.
 try {
-  rawApi = require("../build/Release/nodegit.node");
+  rawApi = require("../build/Release" + "/" + PKG);
 }
 catch (ex) {
   /* istanbul ignore next */
@@ -19,7 +21,7 @@ catch (ex) {
     throw ex;
   }
 
-  rawApi = require("../build/Debug/nodegit.node");
+  rawApi = require("../build/Release" + "/" + PKG);
 }
 
 var promisify = fn => fn && util.promisify(fn); // jshint ignore:line

@@ -37,7 +37,7 @@
       ]
     },
     {
-      "target_name": "nodegit",
+      "target_name": "node-libgit2",
 
       "hard_dependencies": [
         "configureLibssh2"

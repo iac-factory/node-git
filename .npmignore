@@ -25,3 +25,15 @@ appveyor.yml
 *.md
 *.sln
 *.vcxproj
+
+vendor/libssh2/docs
+vendor/libssh2/example
+vendor/libssh2/tests
+
+vendor/libgit2/.devcontainer
+vendor/libgit2/.github
+vendor/libgit2/.vscode
+vendor/libgit2/ci
+vendor/libgit2/docs
+vendor/libgit2/examples
+vendor/libgit2/tests

@@ -1,9 +1,28 @@
 var buildFlags = require( "../utils/buildFlags" );
-var spawn = require( "child_process" ).spawn;
+var subprocess = require( "child_process" );
 var path = require( "path" );
+var os = require("os");
 
 module.exports = function install() {
   console.log( "[@iac-factory/node-git] Running Installation Executable" );
+
+  if (os.platform() === "darwin") {
+      console.log();
+      console.log("NOTICE");
+      console.log();
+      console.log("IaC-Factory's Node.js Binding for 'libgit2' is in pre-release.");
+      console.log();
+      console.log("The repository is currently @iac-factory/node-git, and is");
+      console.log("private until a more stable version becomes available.");
+      console.log();
+      console.log("While publicly published via 'npm', please note that");
+      console.log("substantial incompatibilities may arise, and it's likely the");
+      console.log("following package may receive a rename (node-libgit2)");
+      console.log("depending on availability.");
+      console.log();
+
+      subprocess.execSync("sleep 15");
+  }
 
   var nodePreGyp = "node-pre-gyp";
 
@@ -29,7 +48,7 @@ module.exports = function install() {
   }
 
   return new Promise( function (resolve, reject) {
-    var spawnedNodePreGyp = spawn( nodePreGyp, args, {
+    var spawnedNodePreGyp = subprocess.spawn( nodePreGyp, args, {
       env: Object.assign( {}, process.env, {
         npm_config_node_gyp: path.join( __dirname, "..", "node_modules",
           "node-gyp", "bin", "node-gyp.js" )
