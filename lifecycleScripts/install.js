@@ -1,68 +1,68 @@
-var buildFlags = require("../utils/buildFlags");
-var spawn = require("child_process").spawn;
-var path = require("path");
+var buildFlags = require( "../utils/buildFlags" );
+var spawn = require( "child_process" ).spawn;
+var path = require( "path" );
 
 module.exports = function install() {
-  console.log("[nodegit] Running install script");
+  console.log( "[@iac-factory/node-git] Running Installation Executable" );
 
   var nodePreGyp = "node-pre-gyp";
 
-  if (process.platform === "win32") {
+  if ( process.platform === "win32" ) {
     nodePreGyp += ".cmd";
   }
 
-  var args = ["install"];
+  var args = [ "install" ];
 
-  if (buildFlags.mustBuild) {
-    console.info(
-      "[nodegit] Pre-built download disabled, building from source."
-    );
-    args.push("--build-from-source");
+  if ( buildFlags.mustBuild ) {
+    console.info( "[@iac-factory/node-git] Pre-Built Download Disabled (Local)" );
+    console.info( "[@iac-factory/node-git] Building the Binding from Source" );
 
-    if (buildFlags.debugBuild) {
-      console.info("[nodegit] Building debug version.");
-      args.push("--debug");
+    args.push( "--build-from-source" );
+
+    if ( buildFlags.debugBuild ) {
+      console.info( "[@iac-factory/node-git] Building with Debug Parameter(s)" );
+
+      args.push( "--debug" );
     }
+  } else {
+    args.push( "--fallback-to-build" );
   }
-  else {
-    args.push("--fallback-to-build");
-  }
 
-  return new Promise(function(resolve, reject) {
-    var spawnedNodePreGyp = spawn(nodePreGyp, args, {
-      env: Object.assign({}, process.env, {
-        npm_config_node_gyp: path.join(__dirname, "..", "node_modules",
-          "node-gyp", "bin", "node-gyp.js")
-      })
-    });
+  return new Promise( function (resolve, reject) {
+    var spawnedNodePreGyp = spawn( nodePreGyp, args, {
+      env: Object.assign( {}, process.env, {
+        npm_config_node_gyp: path.join( __dirname, "..", "node_modules",
+          "node-gyp", "bin", "node-gyp.js" )
+      } )
+    } );
 
-    spawnedNodePreGyp.stdout.on("data", function(data) {
-      console.info(data.toString().trim());
-    });
+    spawnedNodePreGyp.stdout.on( "data", function (data) {
+      console.info( data.toString().trim() );
+    } );
 
-    spawnedNodePreGyp.stderr.on("data", function(data) {
-      console.error(data.toString().trim());
-    });
+    spawnedNodePreGyp.stderr.on( "data", function (data) {
+      console.error( data.toString().trim() );
+    } );
 
-    spawnedNodePreGyp.on("close", function(code) {
-      if (!code) {
-        resolve();
+    spawnedNodePreGyp.on( "close", function (code) {
+      if ( !code ) {
+        resolve( void 0 );
       } else {
-        reject(code);
+        reject( code );
       }
-    });
-  })
-    .then(function() {
-      console.info("[nodegit] Completed installation successfully.");
-    });
+    } );
+  } )
+    .then( function () {
+      console.info( "[@iac-factory/node-git] Completed Installation Successfully" );
+    } );
 };
 
 // Called on the command line
-if (require.main === module) {
+if ( require.main === module ) {
   module.exports()
-    .catch(function(e) {
-      console.error("[nodegit] ERROR - Could not finish install");
-      console.error("[nodegit] ERROR - finished with error code: " + e);
-      process.exit(e);
-    });
+    .catch( function (e) {
+      console.error( "[@iac-factory/node-git] ERROR - Exception(s) Caused Installation Failure" );
+      console.error( "[@iac-factory/node-git] ERROR - Signal via Error Code" + ":", e );
+      process.exit( e );
+    } );
 }

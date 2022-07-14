@@ -11,13 +11,13 @@ var exec = require(path.join(rootDir, "./utils/execPromise"));
 module.exports = function submodules() {
   return gitExecutableLocation()
     .catch(function() {
-      console.error("[nodegit] ERROR - Compilation of NodeGit requires git " +
+      console.error("[@iac-factory/node-git] ERROR - Compilation of NodeGit requires git " +
         "CLI to be installed and on the path");
 
       throw new Error("git CLI is not installed or not on the path");
     })
     .then(function() {
-      console.log("[nodegit] Checking submodule status");
+      console.log("[@iac-factory/node-git] Checking submodule status");
       return submoduleStatus();
     })
     .then(function(statuses) {
@@ -35,7 +35,7 @@ module.exports = function submodules() {
 
       if (dirtySubmodules.length) {
         console.error(
-          "[nodegit] ERROR - Some submodules have uncommited changes:"
+          "[@iac-factory/node-git] ERROR - Some submodules have uncommited changes:"
         );
         dirtySubmodules.forEach(printSubmodule);
         console.error(
@@ -55,7 +55,7 @@ module.exports = function submodules() {
 
       if (outOfSyncSubmodules.length) {
         console.warn(
-          "[nodegit] WARNING - Some submodules are pointing to an new commit:"
+          "[@iac-factory/node-git] WARNING - Some submodules are pointing to an new commit:"
         );
         outOfSyncSubmodules.forEach(printSubmodule);
         console.warn("\nThey will not be updated.");
@@ -69,7 +69,7 @@ module.exports = function submodules() {
           return chainPromise
             .then(function() {
               console.log(
-                "[nodegit] Initializing submodule",
+                "[@iac-factory/node-git] Initializing submodule",
                 submoduleToUpdate.name
               );
               return exec(

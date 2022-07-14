@@ -4,7 +4,7 @@ var generateMissingTests = require("./scripts/generateMissingTests");
 var submoduleStatus = require("../lifecycleScripts/submodules/getStatus");
 
 module.exports = function generate() {
-  console.log("[nodegit] Generating native code");
+  console.log("[@iac-factory/node-git] Generating native code");
 
   function tryGenerate(numRetries = 3) {
     // There appears to be a race condition in the generate code somewhere
@@ -15,7 +15,7 @@ module.exports = function generate() {
       generateMissingTests();
     } catch (error) {
       if (numRetries > 0) {
-        console.log("[nodegit] WARNING - Failed to generate native code, trying again");
+        console.log("[@iac-factory/node-git] WARNING - Failed to generate native code, trying again");
         tryGenerate(numRetries - 1);
       } else {
         throw error;
@@ -33,15 +33,15 @@ module.exports = function generate() {
         });
 
       if (dirtySubmodules.length) {
-        console.warn("[nodegit] WARNING - Some submodules are out-of-sync");
+        console.warn("[@iac-factory/node-git] WARNING - Some submodules are out-of-sync");
         dirtySubmodules.forEach(function(submodule) {
-          console.warn("[nodegit]\t" + submodule.name);
+          console.warn("[@iac-factory/node-git]\t" + submodule.name);
         });
       }
     })
     .then(tryGenerate)
     .catch(function(e) {
-      console.error("[nodegit] ERROR - Could not generate native code");
+      console.error("[@iac-factory/node-git] ERROR - Could not generate native code");
       console.error(e);
       throw e;
     });

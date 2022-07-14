@@ -8,7 +8,7 @@ var rootPath = path.join(__dirname, "..");
 
 function printStandardLibError() {
   console.log(
-    "[nodegit] ERROR - the latest libstdc++ is missing on your system!"
+    "[@iac-factory/node-git] ERROR - the latest libstdc++ is missing on your system!"
   );
   console.log("");
   console.log("On Ubuntu you can install it using:");
@@ -34,7 +34,7 @@ module.exports = function install() {
     .catch(function(e) {
       if (~e.toString().indexOf("Module version mismatch")) {
         console.warn(
-          "[nodegit] WARN - NodeGit was built for a different version of node."
+          "[@iac-factory/node-git] WARN - NodeGit was built for a different version of node."
         );
         console.warn(
           "If you are building NodeGit for electron/nwjs you can " +
@@ -68,7 +68,7 @@ module.exports = function install() {
 if (require.main === module) {
   module.exports()
     .catch(function(e) {
-      console.warn("[nodegit] WARN - Could not finish postinstall");
+      console.warn("[@iac-factory/node-git] WARN - Could not finish postinstall");
 
       if (
         process.platform === "linux" &&

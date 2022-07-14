@@ -8,7 +8,7 @@ const libssh2ConfigureScript = path.join(libssh2VendorDirectory, "configure");
 const libssh2StaticConfigDirectory  = path.resolve(__dirname, "..", "vendor", "static_config", "libssh2");
 
 module.exports = function retrieveExternalDependencies() {
-  console.info("[nodegit] Configuring libssh2.");
+  console.info("[@iac-factory/node-git] Configuring libssh2.");
 
   // Copy Windows / Mac preconfigured files
   if (process.platform === "win32" || process.platform === "darwin") {
