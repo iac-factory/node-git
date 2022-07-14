@@ -89,8 +89,8 @@
         "xcodeDebug": "node-gyp configure -- -f xcode",
         "ci": "npm publish --access public",
         "ci-dry-run": "npm publish --access public --dry-run",
-        "ci-build": "./node_modules/.bin/node-pre-gyp build",
-        "ci-rebuild": "node generate && node-gyp configure build",
-        "ci-package": "./node_modules/.bin/node-pre-gyp package"
+        "ci-build": "node generate && node-gyp configure build",
+        "ci-package": "./node_modules/.bin/node-pre-gyp package",
+        "ci-publish": "./node_modules/.bin/node-pre-gyp publish"
     }
 }
